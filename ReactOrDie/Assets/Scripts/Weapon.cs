@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    [SerializeField] protected float m_dmg;
+    public float dmg;
 
     public virtual void Fire(Vector2 direction)
     {

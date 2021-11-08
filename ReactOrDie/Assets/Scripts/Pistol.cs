@@ -12,8 +12,10 @@ public class Pistol : Weapon
         if (m_spawnObject != null)
         {
             GameObject bullet = Instantiate(m_spawnObject, transform.position, Quaternion.identity);
-            bullet.GetComponent<Bullet>().SetDirection(direction);
-            bullet.GetComponent<Bullet>().SetSpeed(m_bulletSpeed);
+            Bullet b = bullet.GetComponent<Bullet>();
+            b.SetDirection(direction);
+            b.SetSpeed(m_bulletSpeed);
+            b.SetDamage(GameObject.Find("Player").GetComponent<CharacterStats>().GetDamage(this));
         }
     }
 }

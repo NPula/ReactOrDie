@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,12 +10,14 @@ public class PlayerController : MonoBehaviour
     
     private enum FacingDirection { Up, Down, Left, Right}
     private FacingDirection m_direction;
-    private Weapon m_currentWeapon = null;
+    [HideInInspector] public Weapon currentWeapon = null;
+    [HideInInspector] public CharacterStats stats;
 
     private void Start()
     {
         m_direction = FacingDirection.Right;
-        m_currentWeapon = m_weaponPivot.transform.GetChild(0).GetComponent<Weapon>();
+        currentWeapon = m_weaponPivot.transform.GetChild(0).GetComponent<Weapon>();
+        stats = GetComponent<CharacterStats>();
     }
 
     private void Update()
@@ -34,11 +37,17 @@ public class PlayerController : MonoBehaviour
         // Player Attack
         if (Input.GetMouseButtonDown(0))
         {
-            if (m_currentWeapon != null)
+            if (currentWeapon != null)
             {
                 Vector2 dir = ((Vector2)mousePos - (Vector2)m_weaponPivot.transform.position).normalized;
-                Attack(m_currentWeapon, dir);
+                Attack(currentWeapon, dir);
             }
+        }
+
+        // Temporary death stuff
+        if (stats.health == 0)
+        {
+            SceneManager.LoadScene(0);
         }
     }
 
@@ -97,5 +106,16 @@ public class PlayerController : MonoBehaviour
     private void Attack(Weapon weapon, Vector2 directionToAttack)
     {
         weapon.Fire(directionToAttack);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            EnemyController enemyCont = collision.GetComponent<EnemyController>();
+            CharacterStats enemyStats = enemyCont.stats;
+            stats.TakeDamage(enemyStats.GetDamage(enemyCont.currentWeapon));
+            Debug.Log("Player Health: " + stats.health);
+        }
     }
 }
