@@ -8,6 +8,10 @@ public class Bullet : MonoBehaviour
     private float m_speed = 20f;
     private float m_damage = 0f;
 
+    // Sets where to destroy the bullet objects after being fired.
+    private float m_boundsX = 16;
+    private float m_boundsY = 10;
+
     void Update()
     {
         transform.Translate(m_direction * m_speed * Time.deltaTime);
@@ -36,16 +40,16 @@ public class Bullet : MonoBehaviour
 
     private void DestroyOutOfBounds()
     {
-        if (transform.position.y > 6  || transform.position.y < -6 ||
-            transform.position.x > 10 || transform.position.x < -10)
+        if (transform.position.y > m_boundsY || transform.position.y < -m_boundsY ||
+            transform.position.x > m_boundsX || transform.position.x < -m_boundsX)
         {
             Destroy(gameObject);
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.CompareTag("Enemy"))
+        if (collision.CompareTag("Enemy"))
         {
             Destroy(gameObject);
         }

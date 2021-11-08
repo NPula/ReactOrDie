@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     
     private enum FacingDirection { Up, Down, Left, Right}
     private FacingDirection m_direction;
+
     [HideInInspector] public Weapon currentWeapon = null;
     [HideInInspector] public CharacterStats stats;
 

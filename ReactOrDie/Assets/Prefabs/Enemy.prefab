@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_speed: 1
-  currentWeapon: {fileID: 0}
-  stats: {fileID: 0}
+  currentWeapon: {fileID: 225277397288192179, guid: 2aec08136e6d4124ea34f35aa7421ec2, type: 3}
+  stats: {fileID: -5984471371002436638}
 --- !u!114 &-5984471371002436638
 MonoBehaviour:
   m_ObjectHideFlags: 0
