@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
 
     [HideInInspector] public Weapon currentWeapon = null;
     [HideInInspector] public CharacterStats stats;
+    [SerializeField] private CameraShake m_camShake;
+
+    [SerializeField] private ParticleSystem m_particles;
 
     private void Start()
     {
@@ -30,6 +33,14 @@ public class PlayerController : MonoBehaviour
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         Vector2 movement = input.normalized * m_speed * Time.deltaTime;
         transform.Translate(movement);
+        if (input != Vector2.zero)
+        {
+            m_particles.Play();
+        }
+        else
+        {
+            m_particles.Pause();
+        }
 
         // Change sprite and weapon direction
         FlipSpriteOnMouseX(mousePos);
@@ -42,6 +53,10 @@ public class PlayerController : MonoBehaviour
             {
                 Vector2 dir = ((Vector2)mousePos - (Vector2)m_weaponPivot.transform.position).normalized;
                 Attack(currentWeapon, dir);
+                if (m_camShake != null)
+                {
+                    m_camShake.shakeDuration = .1f;
+                }
             }
         }
 
