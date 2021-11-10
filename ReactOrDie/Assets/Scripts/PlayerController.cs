@@ -131,7 +131,6 @@ public class PlayerController : MonoBehaviour
             //EnemyController enemyCont = collision.GetComponent<EnemyController>();
             CharacterStats enemyStats = collision.GetComponent<CharacterStats>();
             stats.TakeDamage(enemyStats.GetDamage());
-            Debug.Log("Player Health: " + stats.health);
         }
     }
 }

@@ -27,20 +27,19 @@ public class EnemyController : MonoBehaviour
 
         if (stats.health <= 0)
         {
+            GameManager.Instance.allEnemies.Remove(gameObject);
+
             m_target.GetComponent<CharacterStats>().AddScraps(stats.scraps);
-            Debug.Log("Scraps: " + m_target.GetComponent<CharacterStats>().scraps);
             Destroy(gameObject);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Enemy Attacked: ");
         if (collision.CompareTag("Bullet"))
         {
             float dmg = collision.GetComponent<Bullet>().GetDamage();
             stats.TakeDamage(dmg);
-            Debug.Log("Enemy Health: " + stats.health);
         }
     }
 }
