@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     private enum FacingDirection { Up, Down, Left, Right}
     private FacingDirection m_direction;
 
-    [HideInInspector] public Weapon currentWeapon = null;
+    //[HideInInspector] public Weapon currentWeapon = null;
     [HideInInspector] public CharacterStats stats;
     [SerializeField] private CameraShake m_camShake;
 
@@ -20,50 +20,50 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         m_direction = FacingDirection.Right;
-        currentWeapon = m_weaponPivot.transform.GetChild(0).GetComponent<Weapon>();
+        //currentWeapon = m_weaponPivot.transform.GetChild(0).GetComponent<Weapon>();
         stats = GetComponent<CharacterStats>();
     }
 
     private void Update()
     {
-        // Get mouse position In world space.
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (GameManager.Instance.state != GameManager.State.PAUSED)
+        {
+            // Get mouse position In world space.
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         
-        // Get input and move player
-        Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        Vector2 movement = input.normalized * m_speed * Time.deltaTime;
-        transform.Translate(movement);
-        if (input != Vector2.zero)
-        {
-            m_particles.Play();
-        }
-        else
-        {
-            m_particles.Pause();
-        }
+            // Get input and move player
+            Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            Vector2 movement = input.normalized * m_speed * Time.deltaTime;
+            transform.Translate(movement);
 
-        // Change sprite and weapon direction
-        FlipSpriteOnMouseX(mousePos);
-        SetGunDirection();
-
-        // Player Attack
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (currentWeapon != null)
+            if (input != Vector2.zero)
             {
-                Vector2 dir = ((Vector2)mousePos - (Vector2)m_weaponPivot.transform.position).normalized;
-                Attack(currentWeapon, dir);
-                if (m_camShake != null)
+                m_particles.Play();
+            }
+            else
+            {
+                m_particles.Pause();
+            }
+
+            // Change sprite and weapon direction
+            FlipSpriteOnMouseX(mousePos);
+            SetGunDirection();
+
+            // Player Attack
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (stats.weapon != null)
                 {
-                    m_camShake.shakeDuration = .1f;
+                    Vector2 dir = ((Vector2)mousePos - (Vector2)m_weaponPivot.transform.position).normalized;
+                    Attack(stats.weapon, dir);
                 }
             }
-        }
 
-        // Temporary death stuff
-        if (stats.health == 0)
-        {
-            SceneManager.LoadScene(0);
+            // Temporary death stuff
+            if (stats.health == 0)
+            {
+                SceneManager.LoadScene(0);
+            }
         }
     }
 
@@ -128,9 +128,9 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            EnemyController enemyCont = collision.GetComponent<EnemyController>();
-            CharacterStats enemyStats = enemyCont.stats;
-            stats.TakeDamage(enemyStats.GetDamage(enemyCont.currentWeapon));
+            //EnemyController enemyCont = collision.GetComponent<EnemyController>();
+            CharacterStats enemyStats = collision.GetComponent<CharacterStats>();
+            stats.TakeDamage(enemyStats.GetDamage());
             Debug.Log("Player Health: " + stats.health);
         }
     }

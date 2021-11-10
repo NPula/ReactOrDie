@@ -96,5 +96,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmg: 2
+  camShakeAmount: 0.1
   m_spawnObject: {fileID: 0}
   m_bulletSpeed: 0

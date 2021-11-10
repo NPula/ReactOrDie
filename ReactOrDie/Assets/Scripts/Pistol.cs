@@ -15,7 +15,12 @@ public class Pistol : Weapon
             Bullet b = bullet.GetComponent<Bullet>();
             b.SetDirection(direction);
             b.SetSpeed(m_bulletSpeed);
-            b.SetDamage(GameObject.Find("Player").GetComponent<CharacterStats>().GetDamage(this));
+            b.SetDamage(GameObject.Find("Player").GetComponent<CharacterStats>().GetDamage());
+
+            if (m_camShake != null)
+            {
+                m_camShake.shakeDuration = .1f;
+            }
         }
     }
 }

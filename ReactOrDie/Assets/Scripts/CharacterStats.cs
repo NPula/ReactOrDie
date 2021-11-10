@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
+    public Weapon weapon;
     public float baseDamage = 2;
     public float health = 10f;
     public float maxHealth = 10f;
     public float scraps = 0f; // money in the game for purchasing/creating upgrades. might move this elsewhere
+
+    public void ChangeWeapon(Weapon newWeapon)
+    {
+        weapon = newWeapon;
+    }
 
     public void TakeDamage(float damage)
     {
@@ -38,9 +44,14 @@ public class CharacterStats : MonoBehaviour
         }
     }
 
-    public float GetDamage(Weapon weapon)
+    public float GetDamage()
     {
-        return baseDamage + weapon.dmg;
+        if (weapon != null)
+        {
+            return baseDamage + weapon.dmg;
+        }
+        
+        return baseDamage;
     }
 
     public void OnDeath()
