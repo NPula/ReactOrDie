@@ -21,7 +21,7 @@ public class GameManager : Singleton<GameManager>
     public void Update()
     {
         Debug.Log("Game State: " + state);
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && (state == State.RUNNING || state == State.PAUSED))
         {
             state = (state == State.RUNNING) ? State.PAUSED : State.RUNNING;
         }

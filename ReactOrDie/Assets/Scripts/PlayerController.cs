@@ -7,9 +7,6 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float m_speed = 5f;
     [SerializeField] private GameObject m_weaponPivot;
-    
-    private enum FacingDirection { Up, Down, Left, Right}
-    private FacingDirection m_direction;
 
     //[HideInInspector] public Weapon currentWeapon = null;
     [HideInInspector] public CharacterStats stats;
@@ -19,7 +16,6 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        m_direction = FacingDirection.Right;
         //currentWeapon = m_weaponPivot.transform.GetChild(0).GetComponent<Weapon>();
         stats = GetComponent<CharacterStats>();
     }
@@ -80,28 +76,6 @@ public class PlayerController : MonoBehaviour
             characterScale.x = -1;
         }
         transform.localScale = characterScale;
-    }
-
-    private Vector2 GetDirectionVector()
-    {
-        Vector2 directionToAttack = Vector2.left;
-        switch (m_direction)
-        {
-            case FacingDirection.Up:
-                directionToAttack = Vector2.up;
-                break;
-            case FacingDirection.Down:
-                directionToAttack = Vector2.down;
-                break;
-            case FacingDirection.Right:
-                directionToAttack = Vector2.right;
-                break;
-            case FacingDirection.Left:
-                directionToAttack = Vector2.left;
-                break;
-        } 
-
-        return directionToAttack;
     }
 
     private void SetGunDirection()
