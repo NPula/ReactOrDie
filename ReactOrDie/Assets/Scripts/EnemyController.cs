@@ -10,10 +10,21 @@ public class EnemyController : MonoBehaviour
     public CharacterStats stats;
     private Transform m_target = null;
     
-    
+    private EventManager.EventParam m_eventParams;
+
+    private void Awake()
+    {
+        EventManager.Instance.StartListening("EnemyKilled", OnEnemyDeath);
+    }
+
     private void Start()
     {
         m_target = GameObject.Find("Player").transform;
+
+        // Events parameters for enemies
+        m_eventParams = new EventManager.EventParam();
+        m_eventParams.param5 = this.gameObject;
+
     }
 
     private void Update()
@@ -27,11 +38,14 @@ public class EnemyController : MonoBehaviour
 
         if (stats.health <= 0)
         {
-            GameManager.Instance.allEnemies.Remove(gameObject);
-
-            m_target.GetComponent<CharacterStats>().AddScraps(stats.scraps);
-            Destroy(gameObject);
+            EventManager.TriggerEvent("EnemyKilled", m_eventParams);
         }
+    }
+
+    private void OnEnemyDeath(EventManager.EventParam eventParams)
+    {
+            m_target.GetComponent<CharacterStats>().AddScraps(stats.scraps);
+            Destroy(eventParams.param5);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

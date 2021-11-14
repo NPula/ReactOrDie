@@ -6,12 +6,17 @@ using UnityEngine.UI;
 public class UI_Manager : MonoBehaviour
 {
     public GameObject upgradeMenu;
+    public GameObject pauseScreen;
+    public GameObject gameOver;
     public Text waveText;
     public Text scrapsText;
-    public GameObject ScrapsUI;
+    public GameObject scrapsUI;
+
+    private PlayerController m_player;
 
     private void Start()
     {
+        m_player = FindObjectOfType<PlayerController>();
         upgradeMenu.SetActive(false);
         UpdateWaveNumber();
     }
@@ -22,24 +27,32 @@ public class UI_Manager : MonoBehaviour
         {
             case GameManager.State.RUNNING:
                 upgradeMenu.SetActive(false);
-                ScrapsUI.SetActive(false);
+                scrapsUI.SetActive(false);
+                pauseScreen.SetActive(false);
+                gameOver.SetActive(false);
                 break;
             case GameManager.State.PAUSED:
+                pauseScreen.SetActive(true);
+                break;
+            case GameManager.State.UPGRADES:
                 upgradeMenu.SetActive(true);
-                ScrapsUI.SetActive(true);
+                scrapsUI.SetActive(true);
                 UpdateScrapsNumber();
                 UpdateWaveNumber();
+                break;
+            case GameManager.State.GAMEOVER:
+                gameOver.SetActive(true);
                 break;
         }
     }
 
     public void UpdateWaveNumber()
     {
-        waveText.text = GameManager.Instance.waveManager.waveNumber.ToString();
+        waveText.text = WaveManager.Instance.waveNumber.ToString();
     }
 
     public void UpdateScrapsNumber()
     {
-        ScrapsUI.transform.GetChild(1).GetComponent<Text>().text = GameManager.Instance.player.stats.scraps.ToString();
+        scrapsUI.transform.GetChild(1).GetComponent<Text>().text = m_player.stats.scraps.ToString();
     }
 }

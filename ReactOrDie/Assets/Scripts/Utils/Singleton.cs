@@ -13,6 +13,7 @@ public class Singleton<T> : MonoBehaviour where T : Singleton<T>
     {
         if (instance != null)
         {
+            //Destroy(gameObject);
             Debug.LogError("[Singleton] Trying to instantiate a second instance of a singleton class.");
         }
         else

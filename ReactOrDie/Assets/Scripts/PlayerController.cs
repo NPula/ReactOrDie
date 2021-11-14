@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.Instance.state != GameManager.State.PAUSED)
+        if (GameManager.Instance.state == GameManager.State.RUNNING)
         {
             // Get mouse position In world space.
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -62,7 +62,8 @@ public class PlayerController : MonoBehaviour
             // Temporary death stuff
             if (stats.health == 0)
             {
-                SceneManager.LoadScene(0);
+                GameManager.Instance.state = GameManager.State.GAMEOVER;
+                Destroy(gameObject);
             }
         }
     }
