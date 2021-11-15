@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private CameraShake m_camShake;
 
     [SerializeField] private ParticleSystem m_particles;
+    [SerializeField] private Animator m_amimations;
 
     private void Start()
     {
@@ -31,15 +32,15 @@ public class PlayerController : MonoBehaviour
             Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             Vector2 movement = input.normalized * m_speed * Time.deltaTime;
             transform.Translate(movement);
-
-            if (input != Vector2.zero)
+            m_amimations.SetBool("isRunning", (input != Vector2.zero));
+            /*if (input != Vector2.zero)
             {
                 m_particles.Play();
             }
             else
             {
                 m_particles.Pause();
-            }
+            } */
 
             // Change sprite and weapon direction
             FlipSpriteOnMouseX(mousePos);

@@ -27,13 +27,13 @@ public class Spawner : MonoBehaviour
         for (int i = 0; i < m_numOfEnemiesToSpawn * WaveManager.Instance.waveNumber; i++)
         {
             // add a random offset to the position of spawned enemies.
-            Vector3 randOffset = new Vector3(Random.Range(0, 5), Random.Range(0, 5), 0);
+            //Vector3 randOffset = new Vector3(Random.Range(0, 5), Random.Range(0, 5), 0);
 
             // get a random enemy index to spawn if there are multiple enemy types.
             int randSelection = Random.Range(0, m_enemies.Count);
 
             // spawn enemies
-            GameObject go = Instantiate(m_enemies[randSelection], transform.position + randOffset, Quaternion.identity);
+            GameObject go = Instantiate(m_enemies[randSelection], transform.position/* + randOffset*/, Quaternion.identity);
             if (m_parentObject != null)
             {
                 go.transform.SetParent(go.transform);

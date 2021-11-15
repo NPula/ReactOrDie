@@ -11,6 +11,7 @@ public class EnemyController : MonoBehaviour
     private Transform m_target = null;
     
     private EventManager.EventParam m_eventParams;
+    [SerializeField] Animator animation;
 
     private void Awake()
     {
@@ -31,8 +32,12 @@ public class EnemyController : MonoBehaviour
     {
         if (m_target != null)
         {
+            // Enemy should always be moving. At least for now.(Change later)
+            animation.SetBool("isMoving", true);
+
             // move towards the player
             Vector2 directionToMove = (m_target.transform.position - transform.position).normalized;
+            Flip(directionToMove);
             transform.Translate(directionToMove * m_speed * Time.deltaTime);
         }
 
@@ -40,6 +45,21 @@ public class EnemyController : MonoBehaviour
         {
             EventManager.TriggerEvent("EnemyKilled", m_eventParams);
         }
+    }
+
+    private void Flip(Vector2 direction)
+    {
+        Vector2 characterScale = transform.localScale;
+        if (direction.x > 0)
+        {
+            characterScale.x = 1;
+        }
+        else
+        {
+            characterScale.x = -1;
+        }
+
+        transform.localScale = characterScale;
     }
 
     private void OnEnemyDeath(EventManager.EventParam eventParams)
