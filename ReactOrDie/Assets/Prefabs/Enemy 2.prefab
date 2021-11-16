@@ -104,7 +104,7 @@ MonoBehaviour:
   m_speed: 1
   currentWeapon: {fileID: 1352603278219812681}
   stats: {fileID: 7108729894645450973}
-  animation: {fileID: 1133604648930467183}
+  m_animation: {fileID: 1133604648930467183}
 --- !u!114 &7108729894645450973
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ using UnityEngine;
 public class UI_Upgrades : MonoBehaviour
 {
     private CharacterStats m_playerStats;
+    [SerializeField] private GameObject[] m_weapons;
 
     private void Start()
     {
@@ -25,5 +26,25 @@ public class UI_Upgrades : MonoBehaviour
     public void SwitchWeapon()
     {
         Debug.Log("Switching Weapons!");
+        foreach (GameObject weapon in m_weapons)
+        {
+            weapon.SetActive(false);
+        }
+
+        //m_playerStats.ChangeWeapon();
+    }
+
+    public void SwapPistol()
+    {
+        SwitchWeapon();
+        m_weapons[0].SetActive(true);
+        m_playerStats.ChangeWeapon(m_weapons[0].GetComponent<Weapon>());
+    }
+
+    public void SwapShotgun()
+    {
+        SwitchWeapon();
+        m_weapons[1].SetActive(true);
+        m_playerStats.ChangeWeapon(m_weapons[1].GetComponent<Weapon>());
     }
 }

@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
             Vector2 movement = input.normalized * m_speed * Time.deltaTime;
             transform.Translate(movement);
             m_amimations.SetBool("isRunning", (input != Vector2.zero));
+
             /*if (input != Vector2.zero)
             {
                 m_particles.Play();

@@ -11,7 +11,7 @@ public class EnemyController : MonoBehaviour
     private Transform m_target = null;
     
     private EventManager.EventParam m_eventParams;
-    [SerializeField] Animator animation;
+    [SerializeField] Animator m_animation;
 
     private void Awake()
     {
@@ -33,7 +33,7 @@ public class EnemyController : MonoBehaviour
         if (m_target != null)
         {
             // Enemy should always be moving. At least for now.(Change later)
-            animation.SetBool("isMoving", true);
+            m_animation.SetBool("isMoving", true);
 
             // move towards the player
             Vector2 directionToMove = (m_target.transform.position - transform.position).normalized;

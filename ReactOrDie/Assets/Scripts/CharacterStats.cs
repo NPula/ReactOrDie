@@ -13,6 +13,7 @@ public class CharacterStats : MonoBehaviour
     public void ChangeWeapon(Weapon newWeapon)
     {
         weapon = newWeapon;
+        //weapons[0] = newWeapon;
     }
 
     public void TakeDamage(float damage)
