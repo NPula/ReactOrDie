@@ -24,11 +24,11 @@ public class EventManager : Singleton<EventManager>
 
     public void StopListening(string eventName, Action<EventParam> listener)
     {
-        if (Instance != null)
+        if (Instance == null)
         {
             return;
         }
-
+        Debug.Log("Not NULL!");
         Action<EventParam> thisEvent;
         if (Instance.dictionary.TryGetValue(eventName, out thisEvent))
         {
@@ -45,7 +45,8 @@ public class EventManager : Singleton<EventManager>
         Action<EventParam> thisEvent = null;
         if (Instance.dictionary.TryGetValue(eventName, out thisEvent))
         {
-            thisEvent.Invoke(param);
+            if (thisEvent != null)
+                thisEvent.Invoke(param);
             // OR USE instance.eventDictionary[eventName]();
         }
     }

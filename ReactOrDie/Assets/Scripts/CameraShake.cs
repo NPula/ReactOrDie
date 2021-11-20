@@ -32,6 +32,14 @@ public class CameraShake : MonoBehaviour
 
 	void Update()
 	{
+		// make sure this doesnt keep running if we shoot just before a pause state
+		// maybe change so that we cant just cancel the screen shake by hitting pause at some point
+		// not sure if this matters much though.
+		if (GameManager.Instance.state != GameManager.State.RUNNING)
+        {
+			shakeDuration = 0;
+        }
+
 		if (shakeDuration > 0)
 		{
 			camTransform.localPosition = originalPos + Random.insideUnitSphere * shakeAmount;

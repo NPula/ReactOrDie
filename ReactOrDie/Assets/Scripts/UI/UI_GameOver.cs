@@ -7,13 +7,13 @@ public class UI_GameOver : MonoBehaviour
 {
     public void Restart()
     {
-        GameManager.Instance.state = GameManager.State.RUNNING;
-        Debug.Log("setting scene state: " + GameManager.Instance.state);
-        SceneManager.LoadScene(1);
+        GameManager.Instance.state = GameManager.State.RESTART;
+        //SceneManager.LoadScene(1);
     }
 
     public void QuitGame()
     {
-        Application.Quit();
+        GameManager.Instance.state = GameManager.State.QUIT;
+        //Application.Quit();
     }
 }

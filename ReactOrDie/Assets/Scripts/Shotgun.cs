@@ -25,11 +25,14 @@ public class Shotgun : Weapon
     public void SpawnBullet(Vector2 direction)
     {
         GameObject bullet = Instantiate(m_spawnObject, transform.position, Quaternion.identity);
-        Bullet b = bullet.GetComponent<Bullet>();
-        Debug.Log("Bullet Direction: " + direction);
-        b.SetDirection(direction);
-        b.SetSpeed(m_bulletSpeed);
-        b.SetDamage(GameObject.Find("Player").GetComponent<CharacterStats>().GetDamage());
+        if (bullet != null)
+        {
+            Bullet b = bullet.GetComponent<Bullet>();
+            Debug.Log("Bullet Direction: " + direction);
+            b.SetDirection(direction);
+            b.SetSpeed(m_bulletSpeed);
+            b.SetDamage(GameObject.Find("Player").GetComponent<CharacterStats>().GetDamage());
+        }
     }
 
     public Vector2 RotateDirection(Vector2 direction, float angleInDegrees)

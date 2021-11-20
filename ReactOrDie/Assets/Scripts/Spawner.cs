@@ -18,6 +18,8 @@ public class Spawner : MonoBehaviour
     {
         EventManager.Instance.StartListening("OnWaveEnd", StopSpawning);
         EventManager.Instance.StartListening("OnNextWave", SpawnWave);
+        EventManager.Instance.StartListening("Reset", GameReset);
+
         m_eventParams = new EventManager.EventParam();
         StartCoroutine(SpawnEnemies());
     }
@@ -68,5 +70,11 @@ public class Spawner : MonoBehaviour
     {
         m_hasSpawnedEverything = false;
         StartCoroutine(SpawnEnemies());
+    }
+
+    private void GameReset(EventManager.EventParam param)
+    {
+        //EventManager.Instance.StopListening("OnWaveEnd", StopSpawning);
+        //EventManager.Instance.StopListening("OnNextWave", SpawnWave);
     }
 }

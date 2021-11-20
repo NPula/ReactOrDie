@@ -15,6 +15,7 @@ public class WaveManager : Singleton<WaveManager>
         
         EventManager.Instance.StartListening("EnemyKilled", RemoveEnemy);
         EventManager.Instance.StartListening("WaveDoneSpawning", CheckEnemiesLeft);
+        EventManager.Instance.StartListening("Reset", GameReset);
     }
 
     private void Update()
@@ -58,7 +59,15 @@ public class WaveManager : Singleton<WaveManager>
     private void NextWave()
     {
         EventManager.EventParam param = new EventManager.EventParam();
+        EventManager.TriggerEvent("Reset", param);
         EventManager.TriggerEvent("OnNextWave", param);
         GameManager.Instance.state = GameManager.State.RUNNING;
+    }
+
+    private void GameReset(EventManager.EventParam evtParam)
+    {
+        //EventManager.EventParam param = new EventManager.EventParam();
+        //EventManager.Instance.StopListening("EnemyKilled", RemoveEnemy);
+        //EventManager.Instance.StopListening("WaveDoneSpawning", CheckEnemiesLeft);
     }
 }

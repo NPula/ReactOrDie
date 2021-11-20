@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -8,7 +9,9 @@ public class GameManager : Singleton<GameManager>
         RUNNING,
         PAUSED,
         UPGRADES,
-        GAMEOVER
+        GAMEOVER,
+        RESTART,
+        QUIT
     }
     public State state;
 
@@ -34,10 +37,17 @@ public class GameManager : Singleton<GameManager>
         {
             Time.timeScale = 1;
         }
-    }
 
-    public void OnDestroy()
-    {
-        
+        if (state == State.RESTART)
+        {
+            //EventManager.Instance.dictionary.Clear();
+            EventManager.TriggerEvent("Reset", new EventManager.EventParam());
+            SceneManager.LoadScene(1);
+        }
+
+        if (state == State.QUIT)
+        {
+            Application.Quit();
+        }
     }
 }
