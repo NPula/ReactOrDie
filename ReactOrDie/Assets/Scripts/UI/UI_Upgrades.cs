@@ -25,7 +25,6 @@ public class UI_Upgrades : MonoBehaviour
 
     public void SwitchWeapon()
     {
-        Debug.Log("Switching Weapons!");
         foreach (GameObject weapon in m_weapons)
         {
             weapon.SetActive(false);

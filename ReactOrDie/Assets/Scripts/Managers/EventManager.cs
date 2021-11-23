@@ -28,7 +28,7 @@ public class EventManager : Singleton<EventManager>
         {
             return;
         }
-        Debug.Log("Not NULL!");
+
         Action<EventParam> thisEvent;
         if (Instance.dictionary.TryGetValue(eventName, out thisEvent))
         {

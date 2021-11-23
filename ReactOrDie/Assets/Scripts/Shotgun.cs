@@ -28,7 +28,6 @@ public class Shotgun : Weapon
         if (bullet != null)
         {
             Bullet b = bullet.GetComponent<Bullet>();
-            Debug.Log("Bullet Direction: " + direction);
             b.SetDirection(direction);
             b.SetSpeed(m_bulletSpeed);
             b.SetDamage(GameObject.Find("Player").GetComponent<CharacterStats>().GetDamage());

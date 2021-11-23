@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
         {
             // Get mouse position In world space.
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        
+
             // Get input and move player
             Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             Vector2 movement = input.normalized * m_speed * Time.deltaTime;
